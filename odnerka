@@ -1,0 +1,12 @@
+def convert_temperature(celsius: float) -> tuple[float, float]:
+    """Переводит температуру из °C в °F и K."""
+    fahrenheit: float = celsius * 9 / 5 + 32
+    kelvin: float = celsius + 273.15
+    return fahrenheit, kelvin
+
+
+if __name__ == "__main__":
+    celsius: float = float(input("Введите температуру в °C: "))
+    fahrenheit, kelvin = convert_temperature(celsius)
+    print(f"Температура в °F: {fahrenheit:.2f}")
+    print(f"Температура в K: {kelvin:.2f}")
