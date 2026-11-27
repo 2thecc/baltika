@@ -1,0 +1,20 @@
+def analyze_sentence(line: str) -> tuple[int, str, str] | None:
+    """Возвращает количество слов, самое короткое и самое длинное слово."""
+    words: list[str] = line.strip().split()
+    if not words:
+        return None
+    shortest: str = min(words, key=len)
+    longest: str = max(words, key=len)
+    return len(words), shortest, longest
+
+
+if __name__ == "__main__":
+    line: str = input("Введите предложение: ")
+    res = analyze_sentence(line)
+    if res is None:
+        print("Строка пуста – слов не найдено.")
+    else:
+        count, shortest, longest = res
+        print(f"Количество слов: {count}")
+        print(f"Самое короткое слово: {shortest} (длина {len(shortest)})")
+        print(f"Самое длинное слово: {longest} (длина {len(longest)})")
