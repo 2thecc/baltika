@@ -1,0 +1,20 @@
+def calculate(x: float, y: float, op: str) -> str:
+    """Выполняет арифметическую операцию с защитой от деления на 0."""
+    if op == "+":
+        return f"Результат: {x + y:.2f}"
+    elif op == "-":
+        return f"Результат: {x - y:.2f}"
+    elif op == "*":
+        return f"Результат: {x * y:.2f}"
+    elif op == "/":
+        if y == 0:
+            return "Ошибка: деление на ноль невозможно."
+        return f"Результат: {x / y:.2f}"
+    return "Ошибка: неизвестная операция."
+
+
+if __name__ == "__main__":
+    x: float = float(input("Введите первое число: "))
+    y: float = float(input("Введите второе число: "))
+    op: str = input("Введите операцию (+, -, *, /): ").strip()
+    print(calculate(x, y, op))
