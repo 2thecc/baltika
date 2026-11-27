@@ -1,0 +1,24 @@
+class Book:
+    def __init__(self, title: str, author: str, year: int, price: float):
+        self.title = title
+        self.author = author
+        self.year = year
+        self.__price = max(0.0, price)
+
+    @property
+    def price(self) -> float:
+        return self.__price
+
+    def apply_discount(self, percent: float) -> None:
+        if 0 < percent < 100:
+            self.__price *= (1 - percent / 100)
+
+    def is_cheaper_than(self, other: "Book") -> bool:
+        return self.__price < other.__price
+
+
+if __name__ == "__main__":
+    b1 = Book("Чистый код", "Р. Мартин", 2018, 1500.0)
+    b2 = Book("Грокаем алгоритмы", "А. Бхаргава", 2017, 1200.0)
+    b1.apply_discount(25)
+    print(f"{b1.title}: {b1.price:.2f} руб. | Дешевле второй: {b1.is_cheaper_than(b2)}")
