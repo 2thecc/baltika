@@ -1,0 +1,31 @@
+class Vehicle:
+    def __init__(self, brand: str, speed: float):
+        self.brand = brand
+        self.speed = speed
+
+    def fuel_consumption(self) -> float:
+        return 0.0
+
+    def info(self) -> str:
+        return f"{self.__class__.__name__} ({self.brand}): {self.fuel_consumption():.1f} л/100 км"
+
+
+class Car(Vehicle):
+    def fuel_consumption(self) -> float:
+        return 7.5
+
+
+class Truck(Vehicle):
+    def fuel_consumption(self) -> float:
+        return 24.0
+
+
+class Motorcycle(Vehicle):
+    def fuel_consumption(self) -> float:
+        return 4.2
+
+
+if __name__ == "__main__":
+    fleet: list[Vehicle] = [Car("Toyota", 180), Truck("KAMAZ", 110), Motorcycle("Yamaha", 220)]
+    for v in fleet:
+        print(v.info())
