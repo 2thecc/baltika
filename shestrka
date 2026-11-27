@@ -1,0 +1,27 @@
+def read_numbers() -> list[float]:
+    """Функция ввода последовательности чисел."""
+    raw = input("Введите числа через пробел: ").split()
+    return [float(item) for item in raw]
+
+
+def calc_stats(nums: list[float]) -> dict[str, float]:
+    """Функция вычисления статистических характеристик."""
+    return {
+        "count": float(len(nums)),
+        "sum": sum(nums),
+        "avg": sum(nums) / len(nums),
+        "min": min(nums),
+        "max": max(nums),
+    }
+
+
+def show_stats(stats: dict[str, float]) -> None:
+    """Функция вывода статистики на экран."""
+    print(f"Count: {int(stats['count'])}, Sum: {stats['sum']:.2f}, Avg: {stats['avg']:.2f}")
+    print(f"Min: {stats['min']:.2f}, Max: {stats['max']:.2f}")
+
+
+if __name__ == "__main__":
+    data = read_numbers()
+    if data:
+        show_stats(calc_stats(data))
