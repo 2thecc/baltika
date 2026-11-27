@@ -1,0 +1,17 @@
+def gcd_lcm(a: int, b: int) -> tuple[int, int]:
+    """Вычисляет НОД и НОК по алгоритму Евклида."""
+    x, y = abs(a), abs(b)
+    while y != 0:
+        x, y = y, x % y
+
+    gcd_val: int = x
+    lcm_val: int = (abs(a) * abs(b)) // gcd_val if gcd_val != 0 else 0
+    return gcd_val, lcm_val
+
+
+if __name__ == "__main__":
+    a: int = int(input("Введите первое натуральное число: "))
+    b: int = int(input("Введите второе натуральное число: "))
+    gcd_val, lcm_val = gcd_lcm(a, b)
+    print(f"НОД({a}, {b}) = {gcd_val}")
+    print(f"НОК({a}, {b}) = {lcm_val}")
