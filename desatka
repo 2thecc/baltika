@@ -1,0 +1,63 @@
+import unittest
+
+
+class TodoManager:
+    """Модуль управления задачами с приоритетами и фильтрацией."""
+
+    def __init__(self):
+        self.tasks: list[dict] = []
+
+    def add_task(self, title: str, priority: int = 1) -> None:
+        if not title.strip() or priority not in (1, 2, 3):
+            raise ValueError("Некорректное название или приоритет (1..3)")
+        self.tasks.append({"title": title.strip(), "priority": priority, "done": False})
+
+    def filter_by_priority(self, priority: int) -> list[dict]:
+        return [t for t in self.tasks if t["priority"] == priority]
+
+
+class TestTodoManager(unittest.TestCase):
+    def setUp(self):
+        self.tm = TodoManager()
+
+    def test_01_empty_list(self):
+        self.assertEqual(len(self.tm.tasks), 0)
+
+    def test_02_add_task(self):
+        self.tm.add_task("Тест", 2)
+        self.assertEqual(len(self.tm.tasks), 1)
+
+    def test_03_default_priority(self):
+        self.tm.add_task("Задача")
+        self.assertEqual(self.tm.tasks[0]["priority"], 1)
+
+    def test_04_trim_title(self):
+        self.tm.add_task("  Отчёт  ", 1)
+        self.assertEqual(self.tm.tasks[0]["title"], "Отчёт")
+
+    def test_05_empty_title_error(self):
+        self.assertRaises(ValueError, self.tm.add_task, "   ", 1)
+
+    def test_06_low_priority_error(self):
+        self.assertRaises(ValueError, self.tm.add_task, "Задача", 0)
+
+    def test_07_high_priority_error(self):
+        self.assertRaises(ValueError, self.tm.add_task, "Задача", 5)
+
+    def test_08_filter_priority(self):
+        self.tm.add_task("A", 3)
+        self.tm.add_task("B", 1)
+        self.assertEqual(len(self.tm.filter_by_priority(3)), 1)
+
+    def test_09_initial_not_done(self):
+        self.tm.add_task("A", 2)
+        self.assertFalse(self.tm.tasks[0]["done"])
+
+    def test_10_multiple_tasks(self):
+        self.tm.add_task("A", 1)
+        self.tm.add_task("B", 2)
+        self.assertEqual(len(self.tm.tasks), 2)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
